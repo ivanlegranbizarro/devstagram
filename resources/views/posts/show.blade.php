@@ -101,27 +101,4 @@
             }
         }, 2000);
 </script>
-<script>
-  // Manejar el envío del formulario
-  const likeForm = document.querySelector('.like-form');
-  likeForm.addEventListener('htmx:afterSwap', (event) => {
-    // Comprobar si el evento fue disparado por el envío del formulario
-    if (event.detail.trigger === 'submit') {
-      // Actualizar el botón de like
-      const likeButton = event.target.querySelector('button');
-      const likeCounter = event.target.querySelector('.like-counter');
-      if (likeButton.classList.contains('liked')) {
-        likeButton.classList.remove('liked');
-        likeCounter.innerText = parseInt(likeCounter.innerText) - 1;
-      } else {
-        likeButton.classList.add('liked');
-        likeCounter.innerText = parseInt(likeCounter.innerText) + 1;
-      }
-      // Actualizar el contador de likes
-      const likeCount = event.detail.xhr.responseJSON.count;
-      likeCounter.innerText = likeCount;
-    }
-  });
-</script>
-
 @endpush
