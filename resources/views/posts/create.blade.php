@@ -10,7 +10,7 @@ Nueva publicación
 @section('contenido')
 <div class="md:flex md:justify-center md:gap-10 md:items-center">
   <div class="md:w-6/12 p-5">
-    <form action="{{ route('imagenes.store ') }}" method="POST" enctype="multipart/form-data" id="dropzone"
+    <form action="{{ route('imagenes.store') }}" method="POST" enctype="multipart/form-data" id="dropzone"
       name="dropzone"
       class="dropzone border-dashed border-2 w-full h-96 rounded flex flex-col justify-center items-center">
       @csrf

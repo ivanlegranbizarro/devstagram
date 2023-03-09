@@ -11,36 +11,22 @@
     <img src="{{ asset('uploads/' . $post->imagen) }}" alt="Imagen de {{$post->titulo}}" />
     <div class="p-3 flex items-center gap-2">
       @auth
-      @if ($post->checkLike(auth()->user()))
-      <form method="POST" action="{{ route('posts.likes.destroy', $post) }}" id="like">
+      <form action="{{ route('posts.likes.toggle', $post) }}" method="POST" class="like-form"
+        hx-post="{{ route('posts.likes.toggle', $post) }}" hx-swap="outerHTML" hx-target=".like-counter">
         @csrf
+        @if ($post->checkLike(auth()->user()))
         @method('DELETE')
-        <div class="my-4 px-2">
-          <button type="submit">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" class="w-6 h-6">
-              <path
-                d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
-            </svg>
-
-          </button>
-        </div>
+        @endif
+        <button type="submit">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+            class="w-6 h-6 fill-current text-red-500 @if ($post->checkLike(auth()->user())) liked @endif">
+            <path
+              d="M12 21.35L5.11 17.23l1.64-7.32L2.5 9.64l7.22-.62L12 3l2.28 5.02 7.22.62-4.25 3.27 1.64 7.32L12 21.35z" />
+          </svg>
+        </button>
       </form>
-      @else
-      <form method="POST" action="{{ route('posts.likes.store', $post) }}" id="like">
-        @csrf
-        <div class="my-4 px-2">
-          <button type="submit">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-            </svg>
-          </button>
-        </div>
-      </form>
-      @endif
       @endauth
-      <p>{{ $post->likes->count()}} Likes</p>
+      <span class="like-counter">{{ $post->likes->count() }}</span>
     </div>
     <div>
       <p class="font-bold">{{$post->user->username}}</p>
@@ -107,7 +93,6 @@
 @endsection
 
 @push('scripts')
-<script src="https://unpkg.com/htmx.org@1.8.6"></script>
 <script>
   setTimeout(function() {
             const mensaje = document.getElementById('mensaje');
@@ -116,4 +101,27 @@
             }
         }, 2000);
 </script>
+<script>
+  // Manejar el envío del formulario
+  const likeForm = document.querySelector('.like-form');
+  likeForm.addEventListener('htmx:afterSwap', (event) => {
+    // Comprobar si el evento fue disparado por el envío del formulario
+    if (event.detail.trigger === 'submit') {
+      // Actualizar el botón de like
+      const likeButton = event.target.querySelector('button');
+      const likeCounter = event.target.querySelector('.like-counter');
+      if (likeButton.classList.contains('liked')) {
+        likeButton.classList.remove('liked');
+        likeCounter.innerText = parseInt(likeCounter.innerText) - 1;
+      } else {
+        likeButton.classList.add('liked');
+        likeCounter.innerText = parseInt(likeCounter.innerText) + 1;
+      }
+      // Actualizar el contador de likes
+      const likeCount = event.detail.xhr.responseJSON.count;
+      likeCounter.innerText = likeCount;
+    }
+  });
+</script>
+
 @endpush

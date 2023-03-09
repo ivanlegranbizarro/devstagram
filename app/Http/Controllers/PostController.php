@@ -50,11 +50,9 @@ class PostController extends Controller
 
     public function show(User $user, Post $post)
     {
-        $likesCount = $post->likes()->count();
         return view('posts.show', [
             'post' => $post,
-            'user' => $user,
-            'likesCount' => $likesCount,
+            'user' => $user
         ]);
     }
 

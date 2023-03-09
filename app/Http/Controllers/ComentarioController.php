@@ -23,4 +23,13 @@ class ComentarioController extends Controller
 
         return back()->with('mensaje', 'Comentario agregado');
     }
+
+    public function destroy(Request $request, Comentario $comentario)
+    {
+        $this->authorize('delete', $comentario);
+
+        $comentario->delete();
+
+        return back()->with('mensaje', 'Comentario eliminado');
+    }
 }
