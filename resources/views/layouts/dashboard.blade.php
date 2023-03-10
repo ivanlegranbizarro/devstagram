@@ -19,7 +19,7 @@ Perfil: {{$user->username}}
     <div class="md:w-8/12 lg:w-6/12 px-5 text-center mt-10">
       @auth
       @if($user->id == auth()->user()->id)
-      <a href="" class="hover:font-bold">
+      <a href="{{ route('perfil.index', $user) }}" class="hover:font-bold">
         <p class="text-gray-700 text-xl">{{$user->username}}
       </a>
       @endif
@@ -58,6 +58,5 @@ Perfil: {{$user->username}}
   <livewire:posts-component :posts="$posts" :user="$user" />
 
 </div>
-
 
 @endsection

@@ -3,6 +3,7 @@
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\ImagenController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
@@ -27,3 +28,7 @@ Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
 
 Route::post('/imagenes', [ImagenController::class, 'store'])->name('imagenes.store');
+
+Route::get('{user:username}/editar-perfil', [PerfilController::class, 'store'])->name('perfil.store');
+
+Route::get('{user:username}/editar-perfil', [PerfilController::class, 'index'])->name('perfil.index');
