@@ -42,30 +42,10 @@ Perfil: {{$user->username}}
   <h2 class="text-4xl font-black my-10 text-center">Publicaciones</h2>
 </section>
 
-<div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-  @if ($posts->count())
-  @foreach ($posts as $post)
-  <div>
-    <a href="{{ route('posts.show', ['post'=> $post, 'user'=>$user ]) }}">
-      <img src="{{ asset('uploads/' . $post->imagen) }}" alt="Imagen de post{{$post->titulo}}" />
-    </a>
-  </div>
-  @endforeach
-  @else
-  <p class="text-gray-700 text-xl text-center">Todavía no hay publicaciones</p>
-  @endif
+<div>
+  <livewire:posts-component :posts="$posts" :user="$user" />
+
 </div>
 
-<div class="flex justify-center mt-10">
-  @if ($posts->currentPage() > 1)
-  <a href="{{ $posts->previousPageUrl() }}#publicaciones"
-    class="text-gray-500 transition duration-0 hover:text-gray-800">{{ __('Anterior') }}</a>
-  @endif
-
-  @if ($posts->hasMorePages())
-  <a href="{{ $posts->nextPageUrl() }}#publicaciones"
-    class="text-gray-500 transition duration-0 hover:text-gray-800">{{ __('Siguiente') }}</a>
-  @endif
-</div>
 
 @endsection
