@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class PerfilController extends Controller
 {
@@ -34,6 +35,18 @@ class PerfilController extends Controller
         $user->update([
             'username' => Str::slug($request->username),
         ]);
+
+        if ($request->imagen) {
+            $imagen = $request->file('imagen');
+            $nombreImagen = Str::uuid() . '.' . $imagen->extension();
+            $imagenServidor = Image::make($imagen)->resize(1000, 1000);
+            $imagenPath = public_path('perfiles/' . $nombreImagen);
+            $imagenServidor->save($imagenPath);
+
+            $user->update([
+                'imagen' => $nombreImagen,
+            ]);
+        }
 
         return redirect()->route('posts.index', $user->username);
     }
