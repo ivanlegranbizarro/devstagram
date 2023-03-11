@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ComentarioController;
+use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\ImagenController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PerfilController;
@@ -36,3 +37,8 @@ Route::get('/{user:username}', [PostController::class, 'index'])->name('posts.in
 
 Route::get('/{user:username}/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 Route::post('/{user:username}/posts/{post}', [ComentarioController::class, 'store'])->name('comentarios.store');
+
+
+Route::post('{user:username}/seguir', [FollowerController::class, 'store'])->name('users.seguir');
+
+Route::delete('{user:username}/dejar-de-seguir', [FollowerController::class, 'destroy'])->name('users.dejar');
