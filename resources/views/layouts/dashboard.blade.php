@@ -33,13 +33,13 @@ Perfil: {{$user->username}}
       </p>
       @endguest
       <p class="text-gray-800 text-sm mb-3 font-bold">
-        0
+        {{ $user->followers->count() }}
         <span class="font-normal">
-          Seguidores
+          @choice('Seguidor|Seguidores', $user->followers->count())
         </span>
       </p>
       <p class="text-gray-800 text-sm mb-3 font-bold">
-        0
+        {{ $user->following->count() }}
         <span class="font-normal">
           Siguiendo
         </span>
@@ -47,19 +47,13 @@ Perfil: {{$user->username}}
       <p class="text-gray-800 text-sm mb-3 font-bold">
         {{ $user->posts->count() }}
         <span class="font-normal">
-          Posts
+          @choice('Publicación|Publicaciones', $user->posts->count())
         </span>
       </p>
 
       @auth
       @if ($user->id != auth()->user()->id)
-      <form action="{{ route('users.seguir', $user) }}" method="POST">
-        @csrf
-        <input type="submit"
-          class="bg-blue-600 text-white uppercase rounded-lg px-3 py-1 text-xs font-bold cursor-pointer"
-          value="Seguir" />
-      </form>
-
+      @if ($followerController->checkFollowing($user))
       <form action="{{ route('users.dejar', $user) }}" method="POST">
         @csrf
         @method('DELETE')
@@ -67,6 +61,15 @@ Perfil: {{$user->username}}
           class="bg-red-600 text-white uppercase rounded-lg px-3 py-1 text-xs font-bold cursor-pointer"
           value="Dejar de seguir" />
       </form>
+      @else
+      <form action="{{ route('users.seguir', $user) }}" method="POST">
+        @csrf
+        <input type="submit"
+          class="bg-blue-600 text-white uppercase rounded-lg px-3 py-1 text-xs font-bold cursor-pointer"
+          value="Seguir" />
+      </form>
+
+      @endif
       @endif
       @endauth
 

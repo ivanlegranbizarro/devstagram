@@ -18,10 +18,12 @@ class PostController extends Controller
     public function index(User $user)
     {
         $posts = Post::where('user_id', $user->id)->paginate(3);
+        $followerController = new FollowerController;
 
         return view('layouts.dashboard', [
             'user' => $user,
             'posts' => $posts,
+            'followerController' => $followerController,
         ]);
     }
 

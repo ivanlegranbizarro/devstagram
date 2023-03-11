@@ -19,4 +19,9 @@ class FollowerController extends Controller
 
         return back();
     }
+
+    public function checkFollowing(User $user)
+    {
+        return $user->followers->contains(auth()->user());
+    }
 }
