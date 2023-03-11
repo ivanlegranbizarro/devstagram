@@ -45,7 +45,7 @@ Perfil: {{$user->username}}
         </span>
       </p>
       <p class="text-gray-800 text-sm mb-3 font-bold">
-        0
+        {{ $user->posts->count() }}
         <span class="font-normal">
           Posts
         </span>
