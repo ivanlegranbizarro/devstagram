@@ -14,7 +14,11 @@ Perfil: {{$user->username}}
 <div class="flex justify-center">
   <div class="w-full md:w-8/12 lg:w-6/12 md:flex flex-col md:items-center md:justify-center">
     <div class="md:w-8/12 lg:w-6/12 px-5 mb-5">
+      @if ($user->imagen)
+      <img src="{{ asset('perfiles/' . $user->imagen) }}" alt="Imagen de usuario" class="w-10/12 mx-auto" />
+      @else
       <img src="{{ asset('img/usuario.svg') }}" alt="Imagen de usuario" class="w-10/12 mx-auto" />
+      @endif
     </div>
     <div class="md:w-8/12 lg:w-6/12 px-5 text-center mt-10">
       @auth
