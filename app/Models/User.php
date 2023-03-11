@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Models;
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 use App\Models\Like;
 use App\Models\Post;
-use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -45,7 +45,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get all of the posts for the User
+     * Get all of the posts for the User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -55,12 +55,32 @@ class User extends Authenticatable
     }
 
     /**
-     * Get all of the likes for the User
+     * Get all of the likes for the User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function likes()
     {
         return $this->hasMany(Like::class);
+    }
+
+    /**
+     * Get the followers for the User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
+    }
+
+    /**
+     * Get the users that the User is following.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function following()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
     }
 }

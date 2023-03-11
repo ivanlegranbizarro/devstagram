@@ -52,18 +52,22 @@ Perfil: {{$user->username}}
       </p>
 
       @auth
-      <form action="" method="POST">
+      @if ($user->id != auth()->user()->id)
+      <form action="{{ route('users.seguir', $user) }}" method="POST">
         @csrf
         <input type="submit"
           class="bg-blue-600 text-white uppercase rounded-lg px-3 py-1 text-xs font-bold cursor-pointer"
           value="Seguir" />
       </form>
-      <form action="" method="POST">
+
+      <form action="{{ route('users.dejar', $user) }}" method="POST">
         @csrf
+        @method('DELETE')
         <input type="submit"
           class="bg-red-600 text-white uppercase rounded-lg px-3 py-1 text-xs font-bold cursor-pointer"
           value="Dejar de seguir" />
       </form>
+      @endif
       @endauth
 
     </div>
