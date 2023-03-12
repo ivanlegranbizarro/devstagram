@@ -1,11 +1,11 @@
 # Devstagram
 
-Devstagram es un proyecto web inspirado en Instagram, desarrollado con Laravel, Livewire y Tailwind. El objetivo del proyecto es permitir a los desarrolladores compartir sus proyectos y conectarse con otros miembros de la comunidad.
+Devstagram es un proyecto web inspirado en Instagram, desarrollado con Laravel, Livewire y Tailwind. El objetivo del proyecto es permitir a los desarrolladores compartir sus publicaciones y conectarse con otros miembros de la comunidad.
 
 ## Tecnologías utilizadas
 
 - Laravel: un framework de PHP para el desarrollo de aplicaciones web.
-- Livewire: una biblioteca de PHP para construir interfaces de usuario interactivas con Laravel.
+- Livewire: una biblioteca de PHP para construir interfaces de usuario interactivas con Laravel (y sin JavaScript 😜).
 - Tailwind: un framework de CSS para diseñar interfaces de usuario personalizadas.
 
 ## Funcionalidades
