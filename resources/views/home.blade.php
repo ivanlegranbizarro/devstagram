@@ -22,6 +22,6 @@ Página principal
   <div class="livewire-pagination">{{$posts->links()}}</div>
 </div>
 @else
-<p>Todavía no hay publicaciones de la gente a la que sigues</p>
+<p class="text-center">Todavía no hay publicaciones de la gente a la que sigues</p>
 @endif
 @endsection

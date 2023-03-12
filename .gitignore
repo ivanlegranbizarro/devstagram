@@ -3,6 +3,7 @@
 /public/build
 /public/hot
 /public/storage
+/public/uploads
 /storage/*.key
 /vendor
 .env
@@ -20,4 +21,3 @@ yarn-error.log
 
 /uploads
 public/uploads
-/public/uploads
