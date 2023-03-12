@@ -5,5 +5,5 @@ Página principal
 @endsection
 
 @section('contenido')
-Contenido de esta página
+<h1>Contenido de la página principal</h1>
 @endsection

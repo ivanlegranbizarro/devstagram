@@ -15,7 +15,7 @@
 <body class="bg-gray-100">
     <header class="p-5 border-b bg-white shadow items-center">
         <div class="container mx-auto flex justify-between">
-            <a href="{{ route('principal') }}">
+            <a href="{{ route('home') }}">
                 <h1 class="text-3xl font-black">DevStagram</h1>
             </a>
             <nav class="flex gap-2 items-center">
